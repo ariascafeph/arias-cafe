@@ -99,6 +99,8 @@ body {
   position: relative;
   overflow: hidden;
 }
+.hero-left-content { order: 2; }
+.hero-right-content { order: 1; }
 .hero::before {
   content: '';
   position: absolute;
@@ -556,39 +558,85 @@ body {
 /* Desktop — Laptop */
 @media (min-width: 1024px) {
   .navbar { padding: 18px 80px; }
-  .hero { padding-top: 110px; padding-bottom: 80px; }
-  .hero h1 { font-size: 58px; }
-  .hero p { font-size: 16px; max-width: 500px; }
-  .hero-logo { width: 130px; height: 130px; }
+
+  /* Hero — side by side layout */
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+  .hero-left-content { flex: 1; }
+  .hero-right-content {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-logo {
+    width: 220px;
+    height: 220px;
+    font-size: 90px;
+    margin: 0;
+  }
+  .hero h1 { font-size: 58px; text-align: left; }
+  .hero p { font-size: 16px; max-width: 480px; margin: 0 0 24px 0; text-align: left; }
+  .hero-badge { margin-bottom: 16px; }
+  .hero-btns { justify-content: flex-start; }
+
   .section { padding: 60px 80px; }
+  .section-title { font-size: 32px; }
 
   /* Bestsellers — bigger cards */
-  .best-card { min-width: 200px; }
-  .best-img { height: 130px; }
+  .best-card { min-width: 220px; }
+  .best-img { height: 140px; font-size: 42px; }
+  .best-name { font-size: 14px; }
 
   /* Menu — 2 column layout */
-  .menu-grid {
+  .menu-panel .menu-item-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
   .menu-item { margin-bottom: 0; }
 
-  /* About — side by side */
-  .about-wrap { display: flex; gap: 32px; align-items: flex-start; }
-  .about-left { flex-shrink: 0; width: 280px; }
-  .about-right { flex: 1; }
-  .about-stats { margin-top: 0; }
+  /* About — clean side by side */
+  .about-wrap { 
+    display: flex; 
+    gap: 32px; 
+    align-items: center;
+    padding: 36px;
+  }
+  .about-top { 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    margin-bottom: 0;
+    flex-shrink: 0;
+    width: 160px;
+  }
+  .about-avatar { width: 80px; height: 80px; font-size: 34px; }
+  .about-name { font-size: 16px; margin-top: 10px; }
+  .about-middle { flex: 1; }
+  .about-text { font-size: 15px; line-height: 1.8; }
+  .about-stats { 
+    margin-top: 0; 
+    grid-template-columns: 1fr;
+    flex-shrink: 0;
+    width: 140px;
+  }
 
   /* Location — 2 column */
-  .loc-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
-  .map-mock { height: 100%; min-height: 200px; border-radius: 0; }
+  .loc-card { display: grid; grid-template-columns: 1fr 1fr; }
+  .map-mock { height: 100%; min-height: 220px; border-radius: 24px 0 0 24px; }
+  .loc-info { padding: 28px; }
 
-  .footer { padding: 60px 80px 60px; font-size: 13px; }
+  .footer { padding: 60px 80px; font-size: 13px; }
   .footer-logo { font-size: 26px; }
 }
 
@@ -618,13 +666,17 @@ body {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-logo">☕</div>
-  <div class="hero-badge"><i class="fa-solid fa-circle fa-beat" style="color:var(--pink-mid);font-size:7px"></i> Open daily · 2PM – 11PM</div>
-  <h1>Aria's <em>Cafe</em></h1>
-  <p>Handcrafted drinks & sweet treats made with love in every single sip.</p>
-  <div class="hero-btns">
-    <button class="btn-primary" onclick="scrollToMenu()"><i class="fa-solid fa-mug-hot" style="margin-right:6px"></i>Our Menu</button>
-    <button class="btn-outline" onclick="scrollToSection('about')">Our Story</button>
+  <div class="hero-left-content">
+    <div class="hero-badge"><i class="fa-solid fa-circle fa-beat" style="color:var(--pink-mid);font-size:7px"></i> Open daily · 3PM – 12MN</div>
+    <h1>Aria's <em>Cafe</em></h1>
+    <p>Handcrafted drinks & sweet treats made with love in every single sip.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollToMenu()"><i class="fa-solid fa-mug-hot" style="margin-right:6px"></i>Our Menu</button>
+      <button class="btn-outline" onclick="scrollToSection('about')">Our Story</button>
+    </div>
+  </div>
+  <div class="hero-right-content">
+    <div class="hero-logo">☕</div>
   </div>
 </section>
 
@@ -1038,8 +1090,10 @@ body {
         <div class="about-role">Founder & Head Barista</div>
       </div>
     </div>
-    <div class="about-text">
-      Aria's Cafe was born from a deep love of coffee and the dream of creating a warm, welcoming space where everyone feels at home. Every drink is crafted with care, every waffle baked fresh — from our beloved Spanish Latte to our famous Biscoff Series.
+    <div class="about-middle">
+      <div class="about-text">
+        Aria's Cafe was born from a deep love of coffee and the dream of creating a warm, welcoming space where everyone feels at home. Every drink is crafted with care, every waffle baked fresh — from our beloved Spanish Latte to our famous Biscoff Series.
+      </div>
     </div>
     <div class="about-stats">
       <div class="stat-box">
@@ -1080,15 +1134,22 @@ body {
       <div class="loc-row">
         <div class="loc-icon-wrap"><i class="fa-regular fa-clock"></i></div>
         <div>
-          <div class="loc-text-main">Mon – Sun</div>
-          <div class="loc-text-sub">2:00 PM – 11:00 PM</div>
+          <div class="loc-text-main">Mon – Tue, Thu – Sun</div>
+          <div class="loc-text-sub">3:00 PM – 12:00 MN · Closed on Wednesdays</div>
         </div>
       </div>
       <div class="loc-row">
-        <div class="loc-icon-wrap"><i class="fa-brands fa-instagram"></i></div>
+        <div class="loc-icon-wrap"><i class="fa-brands fa-facebook"></i></div>
         <div>
-          <div class="loc-text-main">@ariascafe</div>
-          <div class="loc-text-sub">Follow us for updates & promos!</div>
+          <div class="loc-text-main">Aria's Cafe</div>
+          <div class="loc-text-sub">Follow us on Facebook!</div>
+        </div>
+      </div>
+      <div class="loc-row">
+        <div class="loc-icon-wrap"><i class="fa-brands fa-tiktok"></i></div>
+        <div>
+          <div class="loc-text-main">@_ariascafe</div>
+          <div class="loc-text-sub">Follow us on TikTok!</div>
         </div>
       </div>
       <div class="loc-row">
