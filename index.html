@@ -30,19 +30,24 @@ body {
   font-family: 'DM Sans', sans-serif;
   background: var(--pink-pale);
   color: var(--text);
-  max-width: 430px;
+  max-width: 100%;
   margin: 0 auto;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
+.site-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 /* ── NAVBAR ── */
 .navbar {
   position: fixed;
-  top: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 430px;
+  top: 0; left: 0; right: 0;
+  width: 100%;
   z-index: 999;
-  padding: 14px 20px;
+  padding: 14px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,6 +57,18 @@ body {
   transition: box-shadow .3s;
 }
 .navbar.scrolled { box-shadow: 0 4px 24px rgba(194,24,91,.10); }
+.nav-center {
+  display: none;
+  gap: 28px;
+}
+.nav-center a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-center a:hover { color: var(--pink-mid); }
 .nav-logo {
   font-family: 'Playfair Display', serif;
   font-size: 18px;
@@ -75,10 +92,10 @@ body {
 
 /* ── HERO ── */
 .hero {
-  padding-top: 70px;
+  padding-top: 100px;
   background: linear-gradient(170deg, #fce4ec 0%, #f8bbd0 55%, #fce4ec 100%);
   text-align: center;
-  padding-bottom: 36px;
+  padding-bottom: 60px;
   position: relative;
   overflow: hidden;
 }
@@ -179,7 +196,7 @@ body {
 .btn-outline:hover { background: var(--pink-light); }
 
 /* ── SECTION WRAPPER ── */
-.section { padding: 28px 20px; }
+.section { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
 .section-label {
   font-size: 10px;
   font-weight: 600;
@@ -508,8 +525,78 @@ body {
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 0; }
+/* ── RESPONSIVE ── */
+
+/* Tablet — iPad */
+@media (min-width: 768px) {
+  .navbar { padding: 16px 40px; }
+  .hero h1 { font-size: 48px; }
+  .hero p { font-size: 15px; max-width: 420px; }
+  .hero-logo { width: 120px; height: 120px; font-size: 54px; }
+  .section { padding: 48px 40px; }
+  .section-title { font-size: 28px; }
+  .best-scroll { gap: 16px; }
+  .best-card { min-width: 180px; }
+  .best-img { height: 110px; font-size: 38px; }
+  .best-name { font-size: 14px; }
+  .menu-cats { gap: 10px; }
+  .cat-btn { font-size: 13px; padding: 9px 20px; }
+  .menu-item { padding: 16px; }
+  .menu-icon { width: 60px; height: 60px; font-size: 28px; }
+  .menu-name { font-size: 15px; }
+  .menu-desc { font-size: 12px; }
+  .about-wrap { padding: 28px; }
+  .about-name { font-size: 18px; }
+  .about-text { font-size: 14px; }
+  .bottom-nav { display: none; }
+  .nav-center { display: flex; }
+  .footer { padding: 40px 40px 60px; }
+}
+
+/* Desktop — Laptop */
+@media (min-width: 1024px) {
+  .navbar { padding: 18px 80px; }
+  .hero { padding-top: 110px; padding-bottom: 80px; }
+  .hero h1 { font-size: 58px; }
+  .hero p { font-size: 16px; max-width: 500px; }
+  .hero-logo { width: 130px; height: 130px; }
+  .section { padding: 60px 80px; }
+
+  /* Bestsellers — bigger cards */
+  .best-card { min-width: 200px; }
+  .best-img { height: 130px; }
+
+  /* Menu — 2 column layout */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .menu-item { margin-bottom: 0; }
+
+  /* About — side by side */
+  .about-wrap { display: flex; gap: 32px; align-items: flex-start; }
+  .about-left { flex-shrink: 0; width: 280px; }
+  .about-right { flex: 1; }
+  .about-stats { margin-top: 0; }
+
+  /* Location — 2 column */
+  .loc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .map-mock { height: 100%; min-height: 200px; border-radius: 0; }
+
+  .footer { padding: 60px 80px 60px; font-size: 13px; }
+  .footer-logo { font-size: 26px; }
+}
+
+/* Large Desktop */
+@media (min-width: 1280px) {
+  .hero h1 { font-size: 68px; }
+  .section { padding: 70px 120px; }
+}
 </style>
 </head>
 <body>
@@ -517,6 +604,12 @@ body {
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <div class="nav-logo">Aria's <span>Cafe</span></div>
+  <div class="nav-center">
+    <a href="#bestsellers">Bestsellers</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#location">Location</a>
+  </div>
   <div class="nav-icons">
     <button class="nav-icon" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
     <button class="nav-icon" title="Cart"><i class="fa-solid fa-bag-shopping"></i></button>
@@ -526,7 +619,7 @@ body {
 <!-- HERO -->
 <section class="hero">
   <div class="hero-logo">☕</div>
-  <div class="hero-badge"><i class="fa-solid fa-circle fa-beat" style="color:var(--pink-mid);font-size:7px"></i> Open daily · 3PM – 12MN</div>
+  <div class="hero-badge"><i class="fa-solid fa-circle fa-beat" style="color:var(--pink-mid);font-size:7px"></i> Open daily · 2PM – 11PM</div>
   <h1>Aria's <em>Cafe</em></h1>
   <p>Handcrafted drinks & sweet treats made with love in every single sip.</p>
   <div class="hero-btns">
@@ -987,28 +1080,14 @@ body {
       <div class="loc-row">
         <div class="loc-icon-wrap"><i class="fa-regular fa-clock"></i></div>
         <div>
-          <div class="loc-text-main">Mon – Tue, Thu - Sun</div>
-          <div class="loc-text-sub">3:00 PM – 12:00 MN · Closed on Wednesdays</div>
+          <div class="loc-text-main">Mon – Sun</div>
+          <div class="loc-text-sub">2:00 PM – 11:00 PM</div>
         </div>
       </div>
       <div class="loc-row">
-    <div class="loc-icon-wrap"><i class="fa-brands fa-facebook"></i></div>
-    <div>
-        <div class="loc-text-main">Aria's Cafe</div>
-        <div class="loc-text-sub">Follow us on Facebook!</div>
-    </div>
-</div>
-      <div class="loc-row">
-    <div class="loc-icon-wrap"><i class="fa-brands fa-tiktok"></i></div>
-    <div>
-        <div class="loc-text-main">@_ariascafe</div>
-        <div class="loc-text-sub">Follow us on TikTok!</div>
-    </div>
-</div>
-      <div class="loc-row">
         <div class="loc-icon-wrap"><i class="fa-brands fa-instagram"></i></div>
         <div>
-          <div class="loc-text-main">@ariascafe2023</div>
+          <div class="loc-text-main">@ariascafe</div>
           <div class="loc-text-sub">Follow us for updates & promos!</div>
         </div>
       </div>
